@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, TextInput, TouchableOpacity, KeyboardAvoidingView, AsyncStorage} from 'react-native';
+import {StyleSheet, AsyncStorage} from 'react-native';
 
 import {GiftedChat} from 'react-native-gifted-chat';
 import io from 'socket.io-client';
 
 const USER_ID = '@userId';
+
+let counter = 1;
+let counter2 = 1000;
 
 export default class MessageView extends Component {
 
@@ -25,7 +28,7 @@ export default class MessageView extends Component {
             'transports': ['websocket']
         });
 
-        this.socket.on('on_connect', this.onReceivedMessage);
+        this.socket.on('on_connect', (response) => console.log(response));
         this.socket.on('message', this.onReceivedMessage);
         this.determineUser();
     }
@@ -80,15 +83,18 @@ export default class MessageView extends Component {
 
         //TODO: Don't hard code
         let message = {
-            _id: 15,
+            _id: counter,
             text: messages.data,
             createdAt: new Date(),
             user: {
-                _id: 1002,
+                _id: counter2,
                 name: 'React Native',
                 avatar: 'http://www.fjellbrass.no/medlemmer/AtleGeitung.JPG',
             },
         };
+        counter++;
+        counter2++;
+        //alert(messages.data);
         this._storeMessages(message);
     }
 
@@ -108,7 +114,7 @@ export default class MessageView extends Component {
 
     render() {
 
-        let user = { _id: this.state.userId || -1 };
+        let user = {_id: this.state.userId || -1};
         return (
             <GiftedChat
                 messages={this.state.messages}
@@ -119,19 +125,3 @@ export default class MessageView extends Component {
     }
 
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'row',
-    },
-    textInput: {
-        height: 40,
-        borderColor: 'gray',
-        width: '80%',
-        borderWidth: 1
-    }
-});
