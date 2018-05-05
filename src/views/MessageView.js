@@ -70,6 +70,10 @@ export default class MessageView extends Component {
                 .then(res => {
                     alert(res);
                     this.setState({username: res})
+                });
+            await AsyncStorage.getItem('ID')
+                .then(res => {
+                    this.setState({userId: res})
                 })
         } catch (e) {
             console.log(e);
