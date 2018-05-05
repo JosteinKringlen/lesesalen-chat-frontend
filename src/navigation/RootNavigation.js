@@ -26,7 +26,10 @@ export const createRootNavigator = (signedIn = false) => {
             mode: "modal",
             initialRouteName: signedIn ? "Chat" : "Login",
             cardStyle:{
-                backgroundColor: 'white'
+                backgroundColor: '#EBEBEB',
+                padding:0,
+                margin:0,
+
             }
         }
     );

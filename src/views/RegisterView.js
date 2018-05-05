@@ -40,9 +40,29 @@ export default class RegisterView extends Component {
                     style={{fontSize: 27}}>
                     Register
                 </Text>
-                <TextInput placeholder={'Name'} onChangeText={(text) => this.setState({username: text})}/>
-                <TextInput placeholder='Email' keyboardType={'email-address'} onChangeText={(text) => this.setState({email: text})}/>
-                <TextInput placeholder='Password' secureTextEntry={true} onChangeText={(text) => this.setState({password: text})}/>
+                <TextInput
+                    placeholder={'Full Name'}
+                    onChangeText={(text) => this.setState({username: text})}
+                    returnKeyType = {"next"}
+                    autoFocus = {true}
+                    onSubmitEditing={() => {this.Email.focus();}}
+                />
+                <TextInput
+                    ref={(input) => {this.Email = input;}}
+                    placeholder='Email'
+                    keyboardType={'email-address'}
+                    onChangeText={(text) => this.setState({email: text})}
+                    returnKeyType = {"next"}
+                    onSubmitEditing={() => {this.Password.focus();}}
+                />
+                <TextInput
+                    ref={(input) => {this.Password = input;}}
+                    placeholder='Password'
+                    secureTextEntry={true}
+                    onChangeText={(text) => this.setState({password: text})}
+                    returnKeyType = {"go"}
+                    onSubmitEditing={() => {this.onRegisterButtonPress(this.state.username, this.state.email, this.state.password)}}
+                />
                 <View style={{margin: 7}}/>
                 <Button
                     onPress={() => {
@@ -60,7 +80,7 @@ export default class RegisterView extends Component {
 const Styles = StyleSheet.create({
     component: {
         padding: 20,
-        backgroundColor: 'white',
+        backgroundColor: '#EBEBEB',
         flex: 1,
         justifyContent: 'center'
 
