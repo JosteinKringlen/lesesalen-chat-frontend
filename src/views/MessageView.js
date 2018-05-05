@@ -89,7 +89,6 @@ export default class MessageView extends Component {
         console.log(this.state.username);
         console.log("System Message:");
         console.log(messageJson);
-        this._storeMessages(messageJson)
     }
 
     onSend(messages = []) {
