@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { KeyboardAvoidingView, AsyncStorage } from 'react-native';
+import {KeyboardAvoidingView, AsyncStorage, StyleSheet, View} from 'react-native';
 
 import { createRootNavigator } from "./src/navigation/RootNavigation";
 import Expo from 'expo';
@@ -28,7 +28,6 @@ export default class App extends Component {
             signedIn: false,
         };
         this.checkIfUserIsLoggedIn = this.checkIfUserIsLoggedIn.bind(this);
-        //this.setLoggedIn = this.setLoggedIn.bind(this);
     }
 
     listen = ({ origin, data }) => {
@@ -40,10 +39,6 @@ export default class App extends Component {
     }
 
     componentWillMount(){
-        /*this.setLoggedIn().then(
-            res => {console.log('good shit');}
-        );*/
-
         register().catch(console.log());
         this.listener = Expo.Notifications.addListener(this.listen);
 
@@ -53,15 +48,6 @@ export default class App extends Component {
                 this.setState({signedIn: res});
             })
     }
-
-    /*async setLoggedIn(){
-        try {
-            //await AsyncStorage.setItem('LOGGED_IN', 'true')
-            //await AsyncStorage.removeItem('LOGGED_IN');
-        } catch (err) {
-            console.log(err);
-        }
-    }*/
 
     async checkIfUserIsLoggedIn(){
         try {
@@ -78,10 +64,19 @@ export default class App extends Component {
         const RootLayout = createRootNavigator(signedIn);
         return (
             <KeyboardAvoidingView
-                behavior={'padding'} style={{flex: 1}} keyboardVerticalOffset={30}
+                behavior={'padding'} style={{flex: 1}} keyboardVerticalOffset={30} contentContainerStyle={style.stuff}
+                automaticallyAdjustContentInsets={false}
             >
-                <RootLayout style={{backgroundColor:'#fff'}}/>
+                <RootLayout style={{backgroundColor:'#EBEBEB', padding:0, margin:0}}/>
             </KeyboardAvoidingView>
         )
     }
 }
+
+export const style = StyleSheet.create({
+    stuff: {
+        backgroundColor: '#EBEBEB',
+        height: '100%'
+    }
+})
+

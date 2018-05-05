@@ -64,47 +64,66 @@ export default class LoginView extends Component {
 
         return (
 
-            <ScrollView contentContainerStyle={Styles.component}>
+            <ScrollView contentContainerStyle={styles.component}>
                 <Text
-                    style={{fontSize: 27}}>
+                    style={{fontSize: 32, paddingBottom: 20}}>
                     Login
                 </Text>
                 <TextInput
-                  placeholder = 'Username'
+                  placeholder = 'Full Name'
                   onChangeText = {(text) => this.setState({username: text})}
                   returnKeyType = {"next"}
                   autoFocus = {true}
+                  onSubmitEditing={() => {this.Password.focus();}}
+                  style={{paddingBottom: 20}}
+                  borderBottomColor={'#48A9A6'}
                 />
                 <TextInput
+                  ref={(input) => {this.Password = input;}}
                   placeholder='Password'
                   secureTextEntry={true}
                   onChangeText={(text) => this.setState({password: text})}
+                  returnKeyType={'go'}
+                  onSubmitEditing={() => {this.onLoginButtonPressed(this.state.username, this.state.password)}}
+                  style={{paddingBottom: 20}}
+                  borderBottomColor={'#48A9A6'}
                 />
                 <View style={{margin: 7}}/>
+                <View style={styles.buttons}>
                 <Button
                     onPress={() => this.onLoginButtonPressed(this.state.username, this.state.password)}
+                    color={'#4281A4'}
                     title="Submit"
                 />
                 <Button
-                    style={Styles.buttons}
+                    style={styles.buttons}
                     onPress={() => navigate('Register')}
                     title={'Register'}
+                    color={'#4281A4'}
                 />
                 <Button
                     onPress={() => this.onLogOutPressed}
+                    color={'#4281A4'}
                     title={'Sign Out'}
                 />
+                </View>
             </ScrollView>
         )
     }
 }
 
-const Styles = StyleSheet.create({
+const styles = StyleSheet.create({
     component: {
         padding: 20,
-        backgroundColor: 'white',
-        flex: 1,
-        justifyContent: 'center'
+        backgroundColor: '#EBEBEB',
+        flex: 2,
+        justifyContent: 'center',
+        alignContent:'center'
 
     },
+    buttons: {
+        justifyContent: 'space-around',
+        flexDirection: 'row',
+        paddingTop: 20
+    }
 });

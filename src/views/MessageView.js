@@ -79,6 +79,7 @@ export default class MessageView extends Component {
                 messages={this.state.messages}
                 onSend={this.onSend}
                 user={user}
+                renderAvatar={null}
             />
         )
     }
