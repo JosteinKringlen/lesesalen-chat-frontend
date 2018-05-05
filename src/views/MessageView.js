@@ -36,7 +36,7 @@ export default class MessageView extends Component {
         this.socket.on('message', this.onReceivedMessage);
         this.getUserInfo()
             .then(res => {
-                this.socket.emit('join', {username: this.state.username, id: this.state.userId});
+                this.socket.emit('join', {username: this.state.username});
             });
         this.socket.on('system', this.onReceivedSystemMessage);
         //this.determineUser();
@@ -67,14 +67,11 @@ export default class MessageView extends Component {
 
     async getUserInfo(){
         try {
-            await AsyncStorage.multiGet(['username', 'id'], (err, stores) => {
-                stores.map((result, i, store) => {
-                    this.setState({
-                        username: store[0][1],
-                        userId: store[1][1]
-                    })
+            await AsyncStorage.getItem('USERNAME')
+                .then(res => {
+                    alert(res);
+                    this.setState({username: res})
                 })
-            })
         } catch (e) {
             console.log(e);
         }
@@ -84,12 +81,17 @@ export default class MessageView extends Component {
      * When the server sends a message to this.
      */
     onReceivedMessage(messages) {
-        const messageJson = JSON.parse(messages);
-        this._storeMessages(messageJson)
+        //const messageJson = JSON.parse(messages);
+        console.log(messages);
+        console.log(typeof messages);
+        console.log(this.state.username);
+        this._storeMessages(messages)
     }
 
     onReceivedSystemMessage(messages) {
         const messageJson = JSON.parse(messages);
+        console.log("soidhfoisdhfiosd");
+        console.log(this.state.username);
         console.log("System Message:");
         console.log(messageJson);
         this._storeMessages(messageJson)
