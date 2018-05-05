@@ -37,7 +37,7 @@ export default class RegisterView extends Component {
         return (
             <ScrollView contentContainerStyle={Styles.component}>
                 <Text
-                    style={{fontSize: 27}}>
+                    style={{fontSize: 32, paddingBottom: 20}}>
                     Register
                 </Text>
                 <TextInput
@@ -46,6 +46,8 @@ export default class RegisterView extends Component {
                     returnKeyType = {"next"}
                     autoFocus = {true}
                     onSubmitEditing={() => {this.Email.focus();}}
+                    borderBottomColor={'#48A9A6'}
+                    style={{paddingBottom: 20}}
                 />
                 <TextInput
                     ref={(input) => {this.Email = input;}}
@@ -54,6 +56,8 @@ export default class RegisterView extends Component {
                     onChangeText={(text) => this.setState({email: text})}
                     returnKeyType = {"next"}
                     onSubmitEditing={() => {this.Password.focus();}}
+                    borderBottomColor={'#48A9A6'}
+                    style={{paddingBottom: 20}}
                 />
                 <TextInput
                     ref={(input) => {this.Password = input;}}
@@ -62,6 +66,8 @@ export default class RegisterView extends Component {
                     onChangeText={(text) => this.setState({password: text})}
                     returnKeyType = {"go"}
                     onSubmitEditing={() => {this.onRegisterButtonPress(this.state.username, this.state.email, this.state.password)}}
+                    borderBottomColor={'#48A9A6'}
+                    style={{paddingBottom: 20}}
                 />
                 <View style={{margin: 7}}/>
                 <Button
@@ -71,6 +77,7 @@ export default class RegisterView extends Component {
                     }
                     }
                     title="Submit"
+                    color={'#4281A4'}
                 />
             </ScrollView>
         )
