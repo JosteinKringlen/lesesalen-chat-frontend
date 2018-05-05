@@ -80,8 +80,11 @@ export default class MessageView extends Component {
         }))
     }
 
-    onReceivedSystemMessage(messages) {
-        const messageJson = JSON.parse(messages);
+    onReceivedSystemMessage(message) {
+        let messageJson = JSON.parse(message);
+        this.setState(previousState => ({
+            messages: GiftedChat.append(previousState.messages, messageJson),
+        }))
     }
 
     onSend(messages = []) {
