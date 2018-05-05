@@ -83,9 +83,11 @@ export default class MessageView extends Component {
     /**
      * When the server sends a message to this.
      */
-    onReceivedMessage(messages) {
+    onReceivedMessage(message) {
+        console.log('onReceivedMessage');
+        console.log(message);
         this.setState(previousState => ({
-            messages: GiftedChat.append(previousState.messages, messages),
+            messages: GiftedChat.append(previousState.messages, message),
         }))
     }
 
@@ -102,7 +104,9 @@ export default class MessageView extends Component {
             messages: GiftedChat.append(previousState.messages, messages),
         }))
         let message = messages[0];
-        this.socket.send(messages[0]);
+        console.log('onSend. Last message:');
+        console.log(message);
+        this.socket.send(message);
     }
 
     render() {
