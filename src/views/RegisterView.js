@@ -48,6 +48,8 @@ export default class RegisterView extends Component {
                     onSubmitEditing={() => {this.Email.focus();}}
                     borderBottomColor={'#48A9A6'}
                     style={{paddingBottom: 20}}
+                    underlineColorAndroid={'#48A9A6'}
+                    placeholderTextColor={'darkgrey'}
                 />
                 <TextInput
                     ref={(input) => {this.Email = input;}}
@@ -58,6 +60,8 @@ export default class RegisterView extends Component {
                     onSubmitEditing={() => {this.Password.focus();}}
                     borderBottomColor={'#48A9A6'}
                     style={{paddingBottom: 20}}
+                    underlineColorAndroid={'#48A9A6'}
+                    placeholderTextColor={'darkgrey'}
                 />
                 <TextInput
                     ref={(input) => {this.Password = input;}}
@@ -67,6 +71,8 @@ export default class RegisterView extends Component {
                     returnKeyType = {"go"}
                     onSubmitEditing={() => {this.onRegisterButtonPress(this.state.username, this.state.email, this.state.password)}}
                     borderBottomColor={'#48A9A6'}
+                    underlineColorAndroid={'#48A9A6'}
+                    placeholderTextColor={'darkgrey'}
                     style={{paddingBottom: 20}}
                 />
                 <View style={{margin: 7}}/>

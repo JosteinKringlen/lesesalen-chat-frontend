@@ -6,6 +6,8 @@
     "description": "Meet your friends man",
     "android": {
       "package": "no.meetspin.friends"
-    }
+    },
+    "icon": "./logo.png",
+    "version": "4.2.0"
   }
 }

@@ -67,7 +67,7 @@ export default class App extends Component {
                 behavior={'padding'} style={{flex: 1}} keyboardVerticalOffset={30} contentContainerStyle={style.stuff}
                 automaticallyAdjustContentInsets={false}
             >
-                <RootLayout style={{backgroundColor:'#EBEBEB', padding:0, margin:0}}/>
+                <RootLayout style={{backgroundColor:'white', padding:0, margin:0}}/>
             </KeyboardAvoidingView>
         )
     }
@@ -75,7 +75,7 @@ export default class App extends Component {
 
 export const style = StyleSheet.create({
     stuff: {
-        backgroundColor: '#EBEBEB',
+        backgroundColor: 'white',
         height: '100%'
     }
 })

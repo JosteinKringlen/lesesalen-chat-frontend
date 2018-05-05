@@ -77,6 +77,8 @@ export default class LoginView extends Component {
                   onSubmitEditing={() => {this.Password.focus();}}
                   style={{paddingBottom: 20}}
                   borderBottomColor={'#48A9A6'}
+                  underlineColorAndroid={'#48A9A6'}
+                  placeholderTextColor={'darkgrey'}
                 />
                 <TextInput
                   ref={(input) => {this.Password = input;}}
@@ -86,7 +88,9 @@ export default class LoginView extends Component {
                   returnKeyType={'go'}
                   onSubmitEditing={() => {this.onLoginButtonPressed(this.state.username, this.state.password)}}
                   style={{paddingBottom: 20}}
+                  underlineColorAndroid={'#48A9A6'}
                   borderBottomColor={'#48A9A6'}
+                  placeholderTextColor={'darkgrey'}
                 />
                 <View style={{margin: 7}}/>
                 <View style={styles.buttons}>
