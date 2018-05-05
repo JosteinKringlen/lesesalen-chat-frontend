@@ -23,7 +23,6 @@ export default class MessageView extends Component {
         //this.determineUser = this.determineUser.bind(this);
         this.onReceivedMessage = this.onReceivedMessage.bind(this);
         this.onSend = this.onSend.bind(this);
-        this._storeMessages = this._storeMessages.bind(this);
         this.onReceivedSystemMessage = this.onReceivedSystemMessage.bind(this);
         this.getUserInfo = this.getUserInfo.bind(this);
 
