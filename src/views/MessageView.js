@@ -81,10 +81,6 @@ export default class MessageView extends Component {
      * When the server sends a message to this.
      */
     onReceivedMessage(messages) {
-        //const messageJson = JSON.parse(messages);
-        console.log(messages);
-        console.log(typeof messages);
-        console.log(this.state.username);
         this._storeMessages(messages)
     }
 

@@ -13,7 +13,6 @@ export default class LoginView extends Component {
         this.state = {
             username: '',
             password: '',
-
             loggedIn: false,
         };
 
@@ -76,9 +75,17 @@ export default class LoginView extends Component {
                     style={{fontSize: 27}}>
                     Login
                 </Text>
-                <TextInput placeholder='Username' onChangeText={(text) => this.setState({username: text})}/>
-                <TextInput placeholder='Password' secureTextEntry={true}
-                           onChangeText={(text) => this.setState({password: text})}/>
+                <TextInput
+                  placeholder = 'Username'
+                  onChangeText = {(text) => this.setState({username: text})}
+                  returnKeyType = {"next"}
+                  autoFocus = {true}
+                />
+                <TextInput
+                  placeholder='Password'
+                  secureTextEntry={true}
+                  onChangeText={(text) => this.setState({password: text})}
+                />
                 <View style={{margin: 7}}/>
                 <Button
                     onPress={() => this.onLoginButtonPressed(this.state.username, this.state.password)}
