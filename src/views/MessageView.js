@@ -16,24 +16,30 @@ export default class MessageView extends Component {
         this.state = {
             text: 'Enter message',
             messages: [],
-            userId: null
+            userId: null,
+            username: '',
         };
 
-        this.determineUser = this.determineUser.bind(this);
+        //this.determineUser = this.determineUser.bind(this);
         this.onReceivedMessage = this.onReceivedMessage.bind(this);
         this.onSend = this.onSend.bind(this);
         this._storeMessages = this._storeMessages.bind(this);
         this.onReceivedSystemMessage = this.onReceivedSystemMessage.bind(this);
+        this.getUserInfo = this.getUserInfo.bind(this);
 
         this.socket = io.connect('http://lesesalen-chat.herokuapp.com/', {
             'transports': ['websocket']
         });
 
+
         this.socket.on('on_connect', (response) => console.log(response));
         this.socket.on('message', this.onReceivedMessage);
-        this.socket.emit('join', {username: 'Jostein'});
+        this.getUserInfo()
+            .then(res => {
+                this.socket.emit('join', {username: this.state.username, id: this.state.userId});
+            });
         this.socket.on('system', this.onReceivedSystemMessage);
-        this.determineUser();
+        //this.determineUser();
     }
 
     /**
@@ -41,7 +47,7 @@ export default class MessageView extends Component {
      * If they aren't, then ask the server for a userId.
      * Set the userId to the component's state.
      */
-    determineUser() {
+    /*determineUser() {
         AsyncStorage.getItem(USER_ID)
             .then((userId) => {
                 // If there isn't a stored userId, then fetch one from the server.
@@ -57,17 +63,36 @@ export default class MessageView extends Component {
                 }
             })
             .catch((e) => alert(e));
+    }*/
+
+    async getUserInfo(){
+        try {
+            await AsyncStorage.multiGet(['username', 'id'], (err, stores) => {
+                stores.map((result, i, store) => {
+                    this.setState({
+                        username: store[0][1],
+                        userId: store[1][1]
+                    })
+                })
+            })
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     /**
      * When the server sends a message to this.
      */
     onReceivedMessage(messages) {
-        this._storeMessages(JSON.parse(messages))
+        const messageJson = JSON.parse(messages);
+        this._storeMessages(messageJson)
     }
 
-    onReceivedSystemMessage(message) {
-        this._storeMessages(JSON.parse(message))
+    onReceivedSystemMessage(messages) {
+        const messageJson = JSON.parse(messages);
+        console.log("System Message:");
+        console.log(messageJson);
+        this._storeMessages(messageJson)
     }
 
     onSend(messages = []) {
