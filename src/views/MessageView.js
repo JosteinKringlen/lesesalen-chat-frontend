@@ -112,6 +112,7 @@ export default class MessageView extends Component {
     render() {
 
         let user = {_id: this.state.userId || -1};
+        console.log(this.state.userId);
         return (
             <GiftedChat
                 messages={this.state.messages}

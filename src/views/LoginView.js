@@ -44,12 +44,12 @@ export default class LoginView extends Component {
     };
 
     async userSuccessFullLogin(res) {
-        console.log(typeof res)
+        console.log(typeof res);
         console.log(res);
         try {
             await AsyncStorage.setItem('LOGGED_IN', 'true');
             await AsyncStorage.setItem('USERNAME', res.username.toString());
-            //await AsyncStorage.multiSet([['LOGGED_IN', 'true'],['USERNAME', res.username],['ID', res.id]])
+            await AsyncStorage.setItem('ID', res.id);
         } catch (err) {
             console.log(err);
         }
