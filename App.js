@@ -1,27 +1,60 @@
-import React from 'react';
-import {StyleSheet, Text, View, KeyboardAvoidingView} from 'react-native';
+import React, { Component } from 'react';
+import { KeyboardAvoidingView, AsyncStorage } from 'react-native';
 
-import MessageView from './src/MessageView';
+import { createRootNavigator } from "./src/navigation/RootNavigation";
 
 console.disableYellowBox = true;
 
-export default class App extends React.Component {
+export default class App extends Component {
+
+    constructor(){
+        super();
+        this.state={
+            signedIn: false,
+        };
+        this.checkIfUserIsLoggedIn = this.checkIfUserIsLoggedIn.bind(this);
+        //this.setLoggedIn = this.setLoggedIn.bind(this);
+    }
+
+    componentWillMount(){
+        /*this.setLoggedIn().then(
+            res => {console.log('good shit');}
+        );*/
+        this.checkIfUserIsLoggedIn()
+            .then(res => {
+                console.log("res: " + res);
+                this.setState({signedIn: res});
+            })
+    }
+
+    /*async setLoggedIn(){
+        try {
+            //await AsyncStorage.setItem('LOGGED_IN', 'true')
+            //await AsyncStorage.removeItem('LOGGED_IN');
+        } catch (err) {
+            console.log(err);
+        }
+    }*/
+
+    async checkIfUserIsLoggedIn(){
+        try {
+           return await AsyncStorage.getItem('LOGGED_IN');
+        }
+        catch (err) {
+            console.log('Could not get info about login state');
+        }
+    }
+
     render() {
+
+        const {signedIn} = this.state;
+        const RootLayout = createRootNavigator(signedIn);
         return (
             <KeyboardAvoidingView
                 behavior={'padding'} style={{flex: 1}} keyboardVerticalOffset={30}
             >
-                <MessageView/>
+                <RootLayout style={{backgroundColor:'#fff'}}/>
             </KeyboardAvoidingView>
         )
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});
