@@ -94,17 +94,11 @@ export default class MessageView extends Component {
     }
 
     onSend(messages = []) {
+        this.setState(previousState => ({
+            messages: GiftedChat.append(previousState.messages, messages),
+        }))
+        let message = messages[0];
         this.socket.send(messages[0]);
-        this._storeMessages(messages);
-    }
-
-    // Helper functions
-    _storeMessages(messages) {
-        this.setState((previousState) => {
-            return {
-                messages: GiftedChat.append(previousState.messages, messages),
-            };
-        });
     }
 
     render() {
