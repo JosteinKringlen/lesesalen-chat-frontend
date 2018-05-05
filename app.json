@@ -1,6 +1,7 @@
 {
   "expo": {
     "sdkVersion": "27.0.0",
+    "orientation": "portrait",
     "name": "Meetspin",
     "description": "Meet your friends man",
     "android": {
