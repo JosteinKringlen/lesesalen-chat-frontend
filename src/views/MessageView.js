@@ -80,7 +80,9 @@ export default class MessageView extends Component {
      * When the server sends a message to this.
      */
     onReceivedMessage(messages) {
-        this._storeMessages(messages)
+        this.setState(previousState => ({
+            messages: GiftedChat.append(previousState.messages, messages),
+        }))
     }
 
     onReceivedSystemMessage(messages) {
