@@ -44,15 +44,9 @@ export default class LoginView extends Component {
     };
 
     async userSuccessFullLogin(res) {
-        console.log(typeof res);
-        console.log(res);
-        try {
-            await AsyncStorage.setItem('LOGGED_IN', 'true');
-            await AsyncStorage.setItem('USERNAME', res.username.toString());
-            await AsyncStorage.setItem('ID', res.id);
-        } catch (err) {
-            console.log(err);
-        }
+        await AsyncStorage.setItem('LOGGED_IN', 'true');
+        await AsyncStorage.setItem('USERNAME', res.username.toString());
+        await AsyncStorage.setItem('USER_ID', res.id.toString());
     };
 
     onLogOutPressed = () => {

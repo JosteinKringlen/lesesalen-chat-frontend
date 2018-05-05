@@ -4,11 +4,6 @@ import {StyleSheet, AsyncStorage} from 'react-native';
 import {GiftedChat} from 'react-native-gifted-chat';
 import io from 'socket.io-client';
 
-const USER_ID = '@userId';
-
-let counter = 1;
-let counter2 = 1000;
-
 export default class MessageView extends Component {
 
     constructor() {
@@ -67,15 +62,11 @@ export default class MessageView extends Component {
     async getUserInfo(){
         try {
             await AsyncStorage.getItem('USERNAME')
-                .then(res => {
-                    alert(res);
-                    this.setState({username: res})
-                });
-            await AsyncStorage.getItem('ID')
-                .then(res => {
-                    this.setState({userId: res})
-                })
+                .then(res => this.setState({username: res}));
+            await AsyncStorage.getItem('USER_ID')
+                .then(res => this.setState({userId: res}))
         } catch (e) {
+            console.log('Error in getUserInfo. Error below:');
             console.log(e);
         }
     }
@@ -84,8 +75,6 @@ export default class MessageView extends Component {
      * When the server sends a message to this.
      */
     onReceivedMessage(message) {
-        console.log('onReceivedMessage');
-        console.log(message);
         this.setState(previousState => ({
             messages: GiftedChat.append(previousState.messages, message),
         }))
@@ -93,10 +82,6 @@ export default class MessageView extends Component {
 
     onReceivedSystemMessage(messages) {
         const messageJson = JSON.parse(messages);
-        console.log("soidhfoisdhfiosd");
-        console.log(this.state.username);
-        console.log("System Message:");
-        console.log(messageJson);
     }
 
     onSend(messages = []) {
@@ -104,15 +89,13 @@ export default class MessageView extends Component {
             messages: GiftedChat.append(previousState.messages, messages),
         }))
         let message = messages[0];
-        console.log('onSend. Last message:');
-        console.log(message);
         this.socket.send(message);
     }
 
     render() {
 
         let user = {_id: this.state.userId || -1};
-        console.log(this.state.userId);
+
         return (
             <GiftedChat
                 messages={this.state.messages}
