@@ -19,7 +19,7 @@ export const createRootNavigator = (signedIn = false) => {
             Register: {
                 screen: RegisterView,
                 left: null
-            }
+            },
         },
         {
             headerMode: "none",

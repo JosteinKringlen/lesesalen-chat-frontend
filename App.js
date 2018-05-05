@@ -2,8 +2,23 @@ import React, { Component } from 'react';
 import { KeyboardAvoidingView, AsyncStorage } from 'react-native';
 
 import { createRootNavigator } from "./src/navigation/RootNavigation";
+import Expo from 'expo';
 
 console.disableYellowBox = true;
+
+
+async function register(){
+    const { status } = await Expo.Permissions.askAsync(
+        Expo.Permissions.NOTIFICATIONS
+    );
+    if(status !== 'granted'){
+        alert('You need to enable notifications in system settings!')
+        return;
+    }
+
+    const token = await Expo.Notifications.getExpoPushTokenAsync();
+    console.log(status, token);
+}
 
 export default class App extends Component {
 
@@ -16,10 +31,22 @@ export default class App extends Component {
         //this.setLoggedIn = this.setLoggedIn.bind(this);
     }
 
+    listen = ({ origin, data }) => {
+        console.log('Push data: ', origin, data);
+    };
+
+    componentWillUnmount(){
+        this.listener && Expo.Notifications.removeListener(this.listen);
+    }
+
     componentWillMount(){
         /*this.setLoggedIn().then(
             res => {console.log('good shit');}
         );*/
+
+        register().catch(console.log());
+        this.listener = Expo.Notifications.addListener(this.listen);
+
         this.checkIfUserIsLoggedIn()
             .then(res => {
                 console.log("res: " + res);

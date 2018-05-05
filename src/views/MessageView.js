@@ -23,6 +23,7 @@ export default class MessageView extends Component {
         this.onReceivedMessage = this.onReceivedMessage.bind(this);
         this.onSend = this.onSend.bind(this);
         this._storeMessages = this._storeMessages.bind(this);
+        this.onReceivedSystemMessage = this.onReceivedSystemMessage.bind(this);
 
         this.socket = io.connect('http://lesesalen-chat.herokuapp.com/', {
             'transports': ['websocket']
@@ -30,27 +31,10 @@ export default class MessageView extends Component {
 
         this.socket.on('on_connect', (response) => console.log(response));
         this.socket.on('message', this.onReceivedMessage);
+        this.socket.emit('join', {username: 'Jostein'});
+        this.socket.on('system', this.onReceivedSystemMessage);
         this.determineUser();
     }
-
-    componentWillMount() {
-        this.setState({
-            messages: [
-                {
-                    _id: 1001,
-                    text: 'Håper du bruker SVN til dette prosjektet ❤️',
-                    createdAt: new Date(),
-                    user: {
-                        _id: 1002,
-                        name: 'React Native',
-                        avatar: 'http://www.fjellbrass.no/medlemmer/AtleGeitung.JPG',
-                    },
-                },
-
-            ],
-        })
-    }
-
 
     /**
      * When a user joins the chatroom, check if they are an existing user.
@@ -79,23 +63,11 @@ export default class MessageView extends Component {
      * When the server sends a message to this.
      */
     onReceivedMessage(messages) {
-        console.log(messages);
+        this._storeMessages(JSON.parse(messages))
+    }
 
-        //TODO: Don't hard code
-        let message = {
-            _id: counter,
-            text: messages.data,
-            createdAt: new Date(),
-            user: {
-                _id: counter2,
-                name: 'React Native',
-                avatar: 'http://www.fjellbrass.no/medlemmer/AtleGeitung.JPG',
-            },
-        };
-        counter++;
-        counter2++;
-        //alert(messages.data);
-        this._storeMessages(message);
+    onReceivedSystemMessage(message) {
+        this._storeMessages(JSON.parse(message))
     }
 
     onSend(messages = []) {
