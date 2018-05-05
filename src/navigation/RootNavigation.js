@@ -2,19 +2,23 @@ import React from 'react';
 import { createStackNavigator } from 'react-navigation';
 
 import LoginView from '../views/LoginView';
-import { Stack } from "./StackNavigation";
+import MessageView from '../views/MessageView'
+import RegisterView from '../views/RegisterView'
 
 export const createRootNavigator = (signedIn = false) => {
     return createStackNavigator(
         {
             Chat: {
-                screen: Stack,
+                screen: MessageView,
                 left: null,
             },
             Login: {
                 screen: LoginView,
                 left: null
-
+            },
+            Register: {
+                screen: RegisterView,
+                left: null
             }
         },
         {
