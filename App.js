@@ -5,7 +5,7 @@ import { createRootNavigator } from "./src/navigation/RootNavigation";
 import Expo from 'expo';
 
 console.disableYellowBox = true;
-
+console.ignoredYellowBox = ['Setting a timer'];
 
 async function register(){
     const { status } = await Expo.Permissions.askAsync(
