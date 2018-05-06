@@ -10,15 +10,17 @@ export default class RegisterView extends Component {
             username: '',
             email: '',
             password: '',
+            avatar: '',
         };
     }
 
-    onRegisterButtonPress = (username, email, password) => {
+    onRegisterButtonPress = (username, email, password, avatar) => {
 
         let formdata = new FormData();
         formdata.append('username', username);
         formdata.append('email', email);
         formdata.append('password', password);
+        formdata.append('avatar', avatar);
 
         fetch('http://lesesalen-chat.herokuapp.com/register', {
             method: 'POST',
@@ -41,7 +43,7 @@ export default class RegisterView extends Component {
                     Register
                 </Text>
                 <TextInput
-                    placeholder={'Full Name'}
+                    placeholder={'Username'}
                     onChangeText={(text) => this.setState({username: text})}
                     returnKeyType = {"next"}
                     autoFocus = {true}
@@ -68,8 +70,19 @@ export default class RegisterView extends Component {
                     placeholder='Password'
                     secureTextEntry={true}
                     onChangeText={(text) => this.setState({password: text})}
+                    returnKeyType = {"next"}
+                    onSubmitEditing={() => {this.Avatar.focus()}}
+                    borderBottomColor={'#48A9A6'}
+                    underlineColorAndroid={'#48A9A6'}
+                    placeholderTextColor={'darkgrey'}
+                    style={{paddingBottom: 20}}
+                />
+                <TextInput
+                    ref={(input) => {this.Avatar = input;}}
+                    placeholder='Avatar URL'
+                    onChangeText={(text) => this.setState({avatar: text})}
                     returnKeyType = {"go"}
-                    onSubmitEditing={() => {this.onRegisterButtonPress(this.state.username, this.state.email, this.state.password)}}
+                    onSubmitEditing={() => {this.onRegisterButtonPress(this.state.username, this.state.email, this.state.password, this.state.avatar)}}
                     borderBottomColor={'#48A9A6'}
                     underlineColorAndroid={'#48A9A6'}
                     placeholderTextColor={'darkgrey'}
@@ -78,7 +91,7 @@ export default class RegisterView extends Component {
                 <View style={{margin: 7}}/>
                 <Button
                     onPress={() => {
-                        this.onRegisterButtonPress(this.state.username, this.state.email, this.state.password);
+                        this.onRegisterButtonPress(this.state.username, this.state.email, this.state.password, this.state.avatar);
                         navigate('Login')
                     }
                     }

@@ -46,6 +46,7 @@ export default class LoginView extends Component {
     async userSuccessFullLogin(res) {
         await AsyncStorage.setItem('LOGGED_IN', 'true');
         await AsyncStorage.setItem('USERNAME', res.username.toString());
+        await AsyncStorage.setItem('AVATAR', res.avatar.toString());
         await AsyncStorage.setItem('USER_ID', res.id.toString());
     };
 
@@ -54,7 +55,7 @@ export default class LoginView extends Component {
             .then(res => res.json())
             .then(res => console.log(res)));
 
-        AsyncStorage.multiRemove(['LOGGED_IN', 'USERNAME', 'ID']);
+        AsyncStorage.multiRemove(['LOGGED_IN', 'USERNAME', 'ID', 'AVATAR']);
     };
 
     render() {

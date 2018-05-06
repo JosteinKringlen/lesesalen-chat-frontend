@@ -13,6 +13,7 @@ export default class MessageView extends Component {
             messages: [],
             userId: null,
             username: '',
+            avatar: ''
         };
 
         this.onReceivedMessage = this.onReceivedMessage.bind(this);
@@ -40,6 +41,8 @@ export default class MessageView extends Component {
                 .then(res => this.setState({username: res}));
             await AsyncStorage.getItem('USER_ID')
                 .then(res => this.setState({userId: res}))
+            await AsyncStorage.getItem('AVATAR')
+                .then(res => this.setState({avatar: res}))
         } catch (e) {
             console.log('Error in getUserInfo. Error below:');
             console.log(e);
@@ -63,6 +66,8 @@ export default class MessageView extends Component {
     }
 
     onSend(messages = []) {
+        messages[0].user.avatar = this.state.avatar;
+        messages[0].user.name = this.state.username;
         this.setState(previousState => ({
             messages: GiftedChat.append(previousState.messages, messages),
         }))
@@ -79,7 +84,7 @@ export default class MessageView extends Component {
                 messages={this.state.messages}
                 onSend={this.onSend}
                 user={user}
-                renderAvatar={null}
+                showUserAvatar={true}
             />
         )
     }
