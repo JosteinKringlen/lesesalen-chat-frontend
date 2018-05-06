@@ -112,7 +112,12 @@ export default class LoginView extends Component {
                     color={'#4281A4'}
                 />
                 <Button
-                    onPress={() => this.onLogOutPressed}
+                    onPress={() => {
+                        this.onLogOutPressed();
+                        alert(this.state.loggedIn);
+                        navigate('Start');
+                    }
+                    }
                     color={'#4281A4'}
                     title={'Sign Out'}
                 />

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Onboarding from 'react-native-onboarding-swiper'
-import {Button, StyleSheet, Text, TextInput, View} from "react-native";
+import {Button, Image, StyleSheet, Text, TextInput, View} from "react-native";
 
 
 export default class StartView extends Component{
@@ -16,6 +16,10 @@ export default class StartView extends Component{
                     {
                         title: 'Hey, There!',
                         subtitle: 'Welcome to MeetSpin!',
+                        image: <Image
+                            style={{width:100, height:100}}
+                            source={require('../../logo.png')}
+                        />,
                         backgroundColor: '#F43041',
                     },
                     {
