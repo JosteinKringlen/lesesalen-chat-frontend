@@ -40,6 +40,9 @@ export default class LoginView extends Component {
                         .then(res => this.setState({loggedIn: true}))
                         .catch(err => console.log(err));
                 }
+                else {
+                    alert("Could not log in!");
+                }
             })
     };
 
@@ -55,6 +58,7 @@ export default class LoginView extends Component {
             .then(res => console.log(res)));
 
         AsyncStorage.multiRemove(['LOGGED_IN', 'USERNAME', 'ID']);
+
     };
 
     render() {
@@ -66,7 +70,7 @@ export default class LoginView extends Component {
 
             <ScrollView contentContainerStyle={styles.component}>
                 <Text
-                    style={{fontSize: 32, paddingBottom: 20}}>
+                    style={{fontSize: 32, paddingBottom: 20, color: 'white'}}>
                     Login
                 </Text>
                 <TextInput
@@ -78,7 +82,8 @@ export default class LoginView extends Component {
                   style={{paddingBottom: 20}}
                   borderBottomColor={'#48A9A6'}
                   underlineColorAndroid={'#48A9A6'}
-                  placeholderTextColor={'darkgrey'}
+                  placeholderTextColor={'white'}
+                  autoCapitalize={'none'}
                 />
                 <TextInput
                   ref={(input) => {this.Password = input;}}
@@ -90,7 +95,8 @@ export default class LoginView extends Component {
                   style={{paddingBottom: 20}}
                   underlineColorAndroid={'#48A9A6'}
                   borderBottomColor={'#48A9A6'}
-                  placeholderTextColor={'darkgrey'}
+                  placeholderTextColor={'white'}
+                  autoCapitalize={'none'}
                 />
                 <View style={{margin: 7}}/>
                 <View style={styles.buttons}>
@@ -119,7 +125,7 @@ export default class LoginView extends Component {
 const styles = StyleSheet.create({
     component: {
         padding: 20,
-        backgroundColor: '#EBEBEB',
+        backgroundColor: '#F43041',
         flex: 2,
         justifyContent: 'center',
         alignContent:'center'

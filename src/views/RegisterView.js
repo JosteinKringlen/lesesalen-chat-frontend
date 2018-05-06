@@ -10,6 +10,8 @@ export default class RegisterView extends Component {
             username: '',
             email: '',
             password: '',
+
+            next: false
         };
     }
 
@@ -28,16 +30,28 @@ export default class RegisterView extends Component {
             body: formdata
         })
             .then(res => res.json())
-            .then(res => console.log(res))
+            .then(res => {
+                if(res.status === 200){
+                    alert("Success!");
+                    this.setState({next: true});
+                }
+                else {
+                    alert("Could not register");
+                    this.setState({next: false});
+                }
+            })
     };
 
 
     render() {
         const {navigate} = this.props.navigation;
+        if(this.state.next){
+            navigate('Login')
+        }
         return (
             <ScrollView contentContainerStyle={Styles.component}>
                 <Text
-                    style={{fontSize: 32, paddingBottom: 20}}>
+                    style={{fontSize: 32, paddingBottom: 20, color:'white'}}>
                     Register
                 </Text>
                 <TextInput
@@ -46,10 +60,11 @@ export default class RegisterView extends Component {
                     returnKeyType = {"next"}
                     autoFocus = {true}
                     onSubmitEditing={() => {this.Email.focus();}}
-                    borderBottomColor={'#48A9A6'}
                     style={{paddingBottom: 20}}
                     underlineColorAndroid={'#48A9A6'}
-                    placeholderTextColor={'darkgrey'}
+                    borderBottomColor={'#48A9A6'}
+                    placeholderTextColor={'white'}
+                    autoCapitalize={'none'}
                 />
                 <TextInput
                     ref={(input) => {this.Email = input;}}
@@ -58,10 +73,11 @@ export default class RegisterView extends Component {
                     onChangeText={(text) => this.setState({email: text})}
                     returnKeyType = {"next"}
                     onSubmitEditing={() => {this.Password.focus();}}
-                    borderBottomColor={'#48A9A6'}
                     style={{paddingBottom: 20}}
                     underlineColorAndroid={'#48A9A6'}
-                    placeholderTextColor={'darkgrey'}
+                    borderBottomColor={'#48A9A6'}
+                    placeholderTextColor={'white'}
+                    autoCapitalize={'none'}
                 />
                 <TextInput
                     ref={(input) => {this.Password = input;}}
@@ -70,16 +86,16 @@ export default class RegisterView extends Component {
                     onChangeText={(text) => this.setState({password: text})}
                     returnKeyType = {"go"}
                     onSubmitEditing={() => {this.onRegisterButtonPress(this.state.username, this.state.email, this.state.password)}}
-                    borderBottomColor={'#48A9A6'}
                     underlineColorAndroid={'#48A9A6'}
-                    placeholderTextColor={'darkgrey'}
+                    borderBottomColor={'#48A9A6'}
+                    placeholderTextColor={'white'}
+                    autoCapitalize={'none'}
                     style={{paddingBottom: 20}}
                 />
                 <View style={{margin: 7}}/>
                 <Button
                     onPress={() => {
                         this.onRegisterButtonPress(this.state.username, this.state.email, this.state.password);
-                        navigate('Login')
                     }
                     }
                     title="Submit"
@@ -93,7 +109,7 @@ export default class RegisterView extends Component {
 const Styles = StyleSheet.create({
     component: {
         padding: 20,
-        backgroundColor: '#EBEBEB',
+        backgroundColor: '#F43041',
         flex: 1,
         justifyContent: 'center'
 

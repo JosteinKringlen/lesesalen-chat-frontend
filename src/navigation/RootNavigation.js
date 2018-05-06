@@ -4,8 +4,9 @@ import { createStackNavigator } from 'react-navigation';
 import LoginView from '../views/LoginView';
 import MessageView from '../views/MessageView'
 import RegisterView from '../views/RegisterView'
+import StartView from '../views/StartView';
 
-export const createRootNavigator = (signedIn = false) => {
+export const createRootNavigator = (firstTimeUser = false) => {
     return createStackNavigator(
         {
             Chat: {
@@ -20,11 +21,15 @@ export const createRootNavigator = (signedIn = false) => {
                 screen: RegisterView,
                 left: null
             },
+            Start: {
+                screen: StartView,
+                left: null
+            }
         },
         {
             headerMode: "none",
             mode: "modal",
-            initialRouteName: signedIn ? "Chat" : "Login",
+            initialRouteName: firstTimeUser ? "Login" : "Start",
             cardStyle:{
                 backgroundColor: 'white',
                 padding:0,
