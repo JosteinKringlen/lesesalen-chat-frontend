@@ -37,6 +37,7 @@ export default class RegisterView extends Component {
                     this.setState({next: true});
                 } else {
                     alert("Could not register");
+                    console.log(res)
                     this.setState({next: false});
                 }
             })
@@ -99,7 +100,6 @@ export default class RegisterView extends Component {
                     onSubmitEditing={() => {this.onRegisterButtonPress(this.state.username, this.state.email, this.state.password, this.state.avatar)}}
                     borderBottomColor={'#48A9A6'}
                     underlineColorAndroid={'#48A9A6'}
-                    borderBottomColor={'#48A9A6'}
                     placeholderTextColor={'white'}
                     autoCapitalize={'none'}
                     style={{paddingBottom: 20}}
@@ -107,7 +107,7 @@ export default class RegisterView extends Component {
                 <View style={{margin: 7}}/>
                 <Button
                     onPress={() => {
-                        this.onRegisterButtonPress(this.state.username, this.state.email, this.state.password, this.state.avatar);
+                        this.onRegisterButtonPress(this.state.username, this.state.email, this.state.password, this.state.avatar.toString());
                         navigate('Login')
                     }
                     }

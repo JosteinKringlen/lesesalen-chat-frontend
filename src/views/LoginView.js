@@ -114,7 +114,6 @@ export default class LoginView extends Component {
                 <Button
                     onPress={() => {
                         this.onLogOutPressed();
-                        alert(this.state.loggedIn);
                         navigate('Start');
                     }
                     }
